@@ -4,12 +4,15 @@
   "Escribir una funcion que retorne solamente los numeros impares de
    una secuencia"
   [s]
+  (for [x s :when (odd? x)] x)
   )
 
 (defn nil-key
   "Escribir una funcion que dada una clave y un mapa, devuelva true, solamente si el mapa
    contiene una entrada con esa clave, y su valor es nil"
-  [k m])
+  [k m]
+  (if (nil? (k m)) true nil)
+  )
 
 (defn range
   "Escribir una funcion que cree una lista de enteros en un rango dado.
