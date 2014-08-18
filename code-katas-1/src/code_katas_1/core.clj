@@ -11,7 +11,7 @@
   "Escribir una funcion que dada una clave y un mapa, devuelva true, solamente si el mapa
    contiene una entrada con esa clave, y su valor es nil"
   [k m]
-  (if (nil? (k m)) true nil)
+  (if (contains? m k) (if (nil? (k m)) true nil) nil)
   )
 
 (defn range
