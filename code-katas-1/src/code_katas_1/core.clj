@@ -25,13 +25,24 @@
   "Escribir una funcion que elimine los duplicados consecutivos
    de una secuencia"
   [s]
+  (distinct s)
   )
 
 (defn max-value
   "Escribir una funcion que reciba un numero variable de parametros
    y retorne el que tenga el valor mayor
    Restricciones: max y max-key"
-  [& args])
+  [& args]
+  (defn max-value2 [maxim pmts]
+    (if (not (empty? pmts))
+      (if (> (first pmts) maxim) 
+        (max-value2 (first pmts) (into [] (drop 1 pmts))) 
+        (max-value2 maxim (into [](drop 1 pmts))) 
+        )
+      maxim
+    )
+    )
+  )
 
 (defn split-two
   "Escribir una funcion que parta una secuencia en dos partes
