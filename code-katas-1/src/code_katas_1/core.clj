@@ -18,6 +18,7 @@
   "Escribir una funcion que cree una lista de enteros en un rango dado.
    Restricciones: range"
   [start end]
+  (if (< start end) (take (- end start) (iterate inc start)) "Inicio debe ser mas pequeño que final")
   )
 
 (defn compress-sequence
