@@ -42,12 +42,14 @@
       maxim
     )
     )
+  (max-value2 0 (into [] args))
   )
 
 (defn split-two
   "Escribir una funcion que parta una secuencia en dos partes
    Restricciones: split-at"
   [length s]
+  
   )
 
 (defn inter-two
