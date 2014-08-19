@@ -11,7 +11,7 @@
   "Escribir una funcion que dada una clave y un mapa, devuelva true, solamente si el mapa
    contiene una entrada con esa clave, y su valor es nil"
   [k m]
-  (if (contains? m k) (if (nil? (k m)) true nil) nil)
+  (if (contains? m k) (if (nil? (k m)) true false) false)
   )
 
 (defn range
@@ -25,7 +25,19 @@
   "Escribir una funcion que elimine los duplicados consecutivos
    de una secuencia"
   [s]
-  (distinct s)
+  
+  (defn secuencia [x sec temp]
+    (if (= x "")
+      (secuencia (aget sec 0) (to-array (into [] (drop 1 sec))) (conj temp (aget sec 0)))
+      (if (not (empty? sec))
+        (if (not= x (aget sec 0)) 
+          (secuencia (aget sec 0) (to-array (into [] (drop 1 sec))) (conj temp (aget sec 0))) 
+          (secuencia x (to-array (into [] (drop 1 sec))) temp))
+        temp
+        )
+      )
+    )
+  (secuencia "" (to-array s) [])
   )
 
 (defn max-value
@@ -34,22 +46,22 @@
    Restricciones: max y max-key"
   [& args]
   (defn max-value2 [maxim pmts]
-    (if (not (empty? pmts))
-      (if (> (first pmts) maxim) 
-        (max-value2 (first pmts) (into [] (drop 1 pmts))) 
-        (max-value2 maxim (into [](drop 1 pmts))) 
-        )
-      maxim
-    )
-    )
-  (max-value2 0 (into [] args))
-  )
+   (if (not (empty? pmts))
+     (if (> (first pmts) maxim) 
+       (max-value2 (first pmts) (into [] (drop 1 pmts))) 
+       (max-value2 maxim (into [] (drop 1 pmts))) 
+       )
+     maxim
+   )
+   )
+ (max-value2 0 (into [] args))
+ )
 
 (defn split-two
   "Escribir una funcion que parta una secuencia en dos partes
    Restricciones: split-at"
   [length s]
-  
+  (into [] (into [] (for [x (take length s)] x)) (into [] (drop length s)) )
   )
 
 (defn inter-two
