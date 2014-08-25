@@ -54,7 +54,7 @@
      maxim
    )
    )
- (max-value2 0 (into [] args))
+   (max-value2 0 args)
  )
 
 (defn split-two
@@ -69,12 +69,23 @@
    luego el segundo de cada una, luego el tercero, etc.
    Restricciones: interleave"
   [s1 s2]
+  
+    (reduce
+      (fn [a b]
+        (if (not= (- b 1) 0)
+          (concat (into [] a) (vector (aget (to-array s1) (- b 1)) (aget (to-array s2) (- b 1))))
+          (list (aget (to-array s1) (- b 1)) (aget (to-array s2) (- b 1)))
+          )
+        )
+      (range (+ 1 (if (< (count s1) (count s2)) (count s1) (count s2))))
+      )
   )
 
 (defn retrieve-caps
   "Escribir una funcion que reciba un string y devuelva un nuevo string conteniendo
    solamente las mayusculas."
   [text]
+  (reduce (fn [a b] (if (= (str b) (clojure.string/upper-case b)) (str a b) a)) (to-array text))
   )
 
 (defn find-truth
@@ -82,6 +93,10 @@
    solamente si alguno de los parametros son true, pero no todos son true. En otro
    caso debera retornar false"
   [& xs]
+  (if (some false? xs)
+     (if (some true? xs) true false)
+     false
+     )
   )
 
 (defn zip-map
@@ -89,4 +104,13 @@
    construya un mapa a partir de ellos.
    Restricciones: zipmap"
   [k v]
+  (reduce 
+        (fn [a b] 
+          (if (not= 0 a) 
+            (merge (into {} (vector(vector (nth k (- b 1)) (nth v (- b 1))))) a) 
+            (into {} (vector(vector (nth k 0) (nth v 0))))
+            )
+          ) 
+        (range 0 (+ 1 (count k)))
+        )
   )
