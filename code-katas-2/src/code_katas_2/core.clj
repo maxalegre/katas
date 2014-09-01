@@ -20,6 +20,15 @@
    retorne una nueva coleccion donde el valor es insertado intercalado cada dos argumentos
    que cumplan el predicado"
   [predicado valor secuencia]
+  (lazy-seq
+    (if (not= (count secuencia) 1)
+      (if (predicado (first secuencia) (second secuencia))
+        (concat (list (first secuencia) valor) (intercalar predicado valor (rest secuencia)))
+        (cons (first secuencia) (intercalar predicado valor (rest secuencia)))
+        )
+      secuencia
+      )
+    )
   )
 
 
