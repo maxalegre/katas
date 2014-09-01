@@ -12,6 +12,21 @@
   "Dado un numero cualquiera de secuencias, cada una ya ordenada de menor a mayor, encontrar el numero
    mas chico que aparezca en todas las secuencias, las secuencias pueden ser infinitas."
   [& seqs]
+  
+  (defn true-false [x secuencia]
+    (for [y secuencia]
+      (contains? (set y) x)
+      )
+    )
+  
+  (defn search2 [secuencias]
+    (if (some false? (true-false (first (first secuencias)) (rest secuencias)))
+      #(search2 (concat (list (rest (first secuencias))) (rest secuencias)))
+      (first (first secuencias))
+      )
+    )
+  
+  (trampoline search2 seqs)
   )
 
 
@@ -20,6 +35,15 @@
    retorne una nueva coleccion donde el valor es insertado intercalado cada dos argumentos
    que cumplan el predicado"
   [predicado valor secuencia]
+  (lazy-seq
+    (if (not= (count secuencia) 1)
+      (if (predicado (first secuencia) (second secuencia))
+        (concat (list (first secuencia) valor) (intercalar predicado valor (rest secuencia)))
+        (cons (first secuencia) (intercalar predicado valor (rest secuencia)))
+        )
+      secuencia
+      )
+    )
   )
 
 
