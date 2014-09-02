@@ -25,6 +25,7 @@
       (first (first secuencias))
       )
     )
+  
   (trampoline search2 seqs)
   )
 
@@ -53,4 +54,31 @@
    La funcion debe aceptar una secuencia inicial de numeros, y devolver una secuencia infinita de compresiones, donde
    cada nuevo elemento es el elemento anterior comprimido."
   [secuencia]
+  
+  (defn tarta [x y sec temp]
+    (if (not (empty? sec))
+      (if (= x (first sec))
+        (tarta x (+ 1 y) (rest sec) temp)
+        (tarta (first sec) 1 (rest sec) (concat temp (list y x)))
+        )
+      (concat temp (list y x))
+      )
+    )
+  
+  (lazy-seq
+    (tarta (first secuencia) 1 (rest secuencia) '())
+    )
   )
+
+
+
+
+
+
+
+
+
+
+
+
+
