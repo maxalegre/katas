@@ -5,6 +5,7 @@
   "Escribir una funcion que acepte una funcion parcial con cantidad de argumentos desconocida,
    retornar una funcion equivalente de n argumentos"
   [f]
+  (fn)
   )
 
 
@@ -65,20 +66,8 @@
       )
     )
   
-  (lazy-seq
-    (tarta (first secuencia) 1 (rest secuencia) '())
-    )
+  (defn tarta2 [secuencia2] (tarta (first secuencia2) 1 (rest secuencia2) '()))
+  
+  (iterate tarta2 secuencia)
+    
   )
-
-
-
-
-
-
-
-
-
-
-
-
-
